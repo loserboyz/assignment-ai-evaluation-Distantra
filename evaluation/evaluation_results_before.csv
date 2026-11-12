@@ -1,0 +1,42 @@
+﻿scenario_id,category,query,evaluation_focus,expected_behavior_note,timestamp,http_status,api_status,intent,actual_response,latency_seconds,input_tokens,output_tokens,total_tokens,initial_observation,manual_verdict,error_details
+EVAL-01,Relevansi Dasar,berapa jatah cuti tahunan saya?,Relevansi jawaban,Sistem menjawab sesuai FAQ cuti (12 hari) dengan akurat,2026-11-09T20:16:35+07:00,200,success,faq,"Jatah cuti tahunan untuk karyawan tetap adalah **12 hari** per tahun, yang dapat diambil setelah Anda memiliki masa kerja minimal 3 bulan. 
+
+Untuk mengecek sisa jatah cuti Anda secara spesifik dan *real-time*, Anda dapat melihatnya melalui portal HR pada menu **'Ringkasan Cuti Saya'**.
+
+*(Sumber: FAQ ID: 1, FAQ ID: 6)*",5.729,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-02,Relevansi Dasar,gimana cara reset password vpn ya,Relevansi jawaban (bahasa informal),Sistem tetap menemukan FAQ yang tepat meski frasa informal,2026-11-09T20:17:11+07:00,200,success,faq,"Untuk melakukan reset password VPN perusahaan, Anda dapat mengikuti langkah berikut:
+
+* Melakukan reset secara mandiri melalui portal **self-service IT**.
+* Menghubungi tim **IT Support** jika akun Anda mengalami kondisi terkunci.
+
+Sumber: FAQ ID: 8",34.811,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-03,Parafrase/Sinonim,"saya lupa kata sandi laptop kantor, harus gimana?",Kemampuan semantic search menangkap sinonim (kata sandi vs password),Sistem mengarahkan ke FAQ password laptop yang relevan,2026-11-09T20:17:25+07:00,200,error,unknown,"Maaf, terjadi gangguan ketika memproses permintaan Anda. Silakan coba kembali.",13.089,,,,API mengembalikan status lain; perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-04,Di Luar Cakupan,apakah kantor menyediakan tempat parkir motor gratis?,Perilaku sistem saat informasi tidak tersedia,"Sistem mengakui tidak punya informasi tsb, bukan mengarang jawaban (deteksi hallucination)",2026-11-09T20:17:31+07:00,200,success,faq,"Maaf, informasi mengenai fasilitas atau ketersediaan tempat parkir motor gratis di kantor belum ditemukan dalam knowledge base.",5.181,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-05,Di Luar Cakupan,siapa nama CEO perusahaan ini?,Perilaku sistem saat informasi tidak tersedia,Sistem tidak boleh mengarang nama; harus mengakui keterbatasan informasi,2026-11-09T20:18:08+07:00,200,success,faq,"Mohon maaf, informasi mengenai nama CEO perusahaan belum ditemukan dalam knowledge base yang tersedia.",35.552,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-06,Tool Call Valid,apa status TICKET-0005?,Akurasi tool call,Sistem mengembalikan status tiket yang sesuai data mock,2026-11-09T20:18:09+07:00,200,success,ticket_status,"Informasi Tiket: TICKET-0005
+Nama Karyawan: Dedi Kurniawan
+Kategori: Access
+Subjek: Reset password VPN gagal terus
+Status: Diproses
+Update Terakhir: 2026-08-27",0.186,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-07,Tool Call Invalid,apa status TICKET-9999?,Penanganan data tidak ditemukan,"Sistem memberi pesan informatif, tidak crash/error mentah",2026-11-09T20:18:10+07:00,200,not_found,ticket_status,Tiket TICKET-9999 tidak ditemukan dalam database.,0.004,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-08,Tool Call Ambigu,tiket saya gimana ya?,Penanganan permintaan tanpa ID eksplisit,"Sistem meminta klarifikasi ID tiket, bukan menebak",2026-11-09T20:18:11+07:00,200,need_input,ticket_status,Mohon sertakan ID tiket Anda dengan format TICKET-0001 agar saya dapat memeriksa statusnya.,0.015,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-09,Routing Ambigu,kenapa laptop saya lambat dan gimana cara cek tiket yang saya buat soal itu?,Kemampuan router menangani query campuran (informasi + aksi),Amati intent mana yang dipilih dan apakah masuk akal; catat sebagai temuan kualitatif,2026-11-09T20:18:12+07:00,200,need_input,ticket_status,Mohon sertakan ID tiket Anda dengan format TICKET-0001 agar saya dapat memeriksa statusnya.,0.004,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-10,Konsistensi,berapa hari cuti tahunan yang saya dapat?,Konsistensi jawaban terhadap query yang maknanya sama dengan EVAL-01,Jawaban harus konsisten dengan EVAL-01 meski kalimat beda,2026-11-09T20:18:17+07:00,200,success,faq,"Karyawan tetap mendapatkan jatah **12 hari cuti tahunan**, yang dapat diambil setelah memiliki masa kerja minimal 3 bulan.
+
+Sumber: FAQ ID: 1",4.519,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-11,Beban Panjang,"Tolong jelaskan sedetail-detailnya seluruh kebijakan cuti, reset password, permintaan perangkat, dan proses onboarding sekaligus dalam satu jawaban.",Latency & kualitas jawaban pada query kompleks/panjang,Amati waktu respons dan apakah jawaban tetap relevan atau melebar ke luar konteks,2026-11-09T20:18:26+07:00,200,success,faq,"Berikut adalah informasi terkait topik yang Anda tanyakan berdasarkan basis pengetahuan yang tersedia:
+
+* **Reset Password Account Laptop Kerja**
+  * Hubungi tim IT Support melalui tiket untuk mengajukan reset password.
+  * Verifikasi identitas akan dilakukan oleh tim IT Support sebelum reset password dilaksanakan.
+  *(FAQ ID: 12)*
+
+* **Proses Onboarding (Hari Pertama Karyawan Baru)**
+  * Karyawan baru perlu membawa dokumen identitas asli untuk proses verifikasi.
+  * Karyawan baru akan menerima akun email serta akses sistem pada hari pertama kerja.
+  *(FAQ ID: 19)*
+
+* **Kebijakan Cuti**
+  *",7.957,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
+EVAL-12,Resource/Token,halo,Baseline penggunaan token untuk query sangat singkat,Bandingkan token usage query ini vs EVAL-11 sebagai referensi efisiensi,2026-11-09T20:18:51+07:00,200,success,faq,Halo! Ada yang bisa saya bantu terkait layanan atau kebijakan IT perusahaan? Silakan sampaikan pertanyaan Anda.,23.712,,,,Respons diterima; penilaian relevansi/hallucination tetap perlu pemeriksaan manual.,Belum ditinjau,
